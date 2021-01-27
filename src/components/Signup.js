@@ -6,8 +6,7 @@ import { FormGroup, TextField, Slide, CssBaseline, Snackbar} from '@material-ui/
 import MuiAlert from '@material-ui/lab/Alert';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { LoginAction, clearSnackBar } from '../redux/actions/LoginAction'
-
+import { signupAction, clearSnackBar } from '../redux/actions/SignupAction'
 const initialValues = {
     fullname:'',
     email: '',
@@ -49,8 +48,8 @@ function Signup(props) {
   const classes = useStyles()
 
   const handleSubmition = (payload, {resetForm}) => {
-    props.LoginAction(payload)
-    
+    props.signupAction(payload)
+    resetForm({payload: ''})
   }
 
   const TransitionUp = (props) => {
@@ -69,6 +68,19 @@ function Signup(props) {
     alignItems='center'
     >
       <CssBaseline/>
+
+      <Snackbar
+      open={props.signup.snackBarMessage}
+      onClose={closeSnackBarTimer}
+      autoHideDuration={5000}
+      TransitionComponent={TransitionUp}>
+          <MuiAlert 
+          severity="error" 
+          variant="filled"
+          elevation={6}>
+          {props.signup.error}
+          </MuiAlert>
+      </Snackbar>
 
       
       <Grid item md={3} sm={6} xs={10}>
@@ -131,7 +143,7 @@ function Signup(props) {
                    />
                    {errors.confirmpassword && touched.confirmpassword ? (<div style={{textAlign: 'left', color:'red'}}>{errors.confirmpassword}</div>) : null}
                 </FormGroup>
-              <Button variant='contained' size='medium' color='primary' type="submit" className={classes.formButtons}>Sign up</Button>
+              <Button variant='contained' size='medium' color='primary' type="submit" className={classes.formButtons} disabled={props.signup.pending}>Sign up</Button>
           </Form>
               
             )}
@@ -149,7 +161,7 @@ function Signup(props) {
 }
 
 const mapStateToProps = state => ({
-  login: state.login
+  signup: state.signup
 })
 
-export default Signup
+export default connect(mapStateToProps, {signupAction, clearSnackBar})(Signup)

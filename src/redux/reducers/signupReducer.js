@@ -1,4 +1,4 @@
-import { LOGIN_PENDING, LOGIN_ERROR, LOGIN_SUCCESS, CLEAR_SNACKBAR } from '../actions/LoginAction'
+import { SIGNUP_ERROR, SIGNUP_LOADING, SIGNUP_SUCCESS, CLEAR_SNACKBAR } from '../actions/SignupAction'
 
 const initialState = {
     pending: false,
@@ -7,20 +7,20 @@ const initialState = {
     snackBarMessage: false
 }
 
-function LoginReducer(state = initialState, action) {
+function signupReducer(state = initialState, action) {
     switch(action.type){
-        case LOGIN_PENDING:
+        case SIGNUP_LOADING:
             return{
                 ...state,
                 pending: true,
             }
-        case LOGIN_SUCCESS:
+        case SIGNUP_SUCCESS:
             return{
                 ...state,
                 pending: false,
                 success: true
             }
-        case LOGIN_ERROR:
+        case SIGNUP_ERROR:
             return{
                 ...state,
                 pending: false,
@@ -37,4 +37,4 @@ function LoginReducer(state = initialState, action) {
     }
 }
 
-export default LoginReducer
+export default signupReducer

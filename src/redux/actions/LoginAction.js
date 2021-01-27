@@ -3,7 +3,7 @@ import axios from 'axios'
 export const LOGIN_PENDING = 'LOGIN_PENDING'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
-export const CLEAR_SNACBAR = 'CLEAR_SNACKBAR'
+export const CLEAR_SNACKBAR = 'CLEAR_SNACKBAR'
 
 export const LoginAction = (logindata) => dispatch => {
     dispatch({
@@ -20,13 +20,13 @@ export const LoginAction = (logindata) => dispatch => {
     .catch(err => {
         dispatch({
             type: LOGIN_ERROR,
-            error: err.message
+            error: err.response ? err.response.data.error : err.message
         })
     })
 }
 
 export const clearSnackBar = () => dispatch => {
     dispatch({
-        type: CLEAR_SNACBAR
+        type: CLEAR_SNACKBAR
     })
 }
