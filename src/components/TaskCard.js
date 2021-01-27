@@ -1,6 +1,7 @@
-import React from "react";
-import { Card, CardContent, Typography, CardActions, IconButton, makeStyles, CardActionArea, Checkbox } from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+import React, {useState} from "react";
+import { Card, CardContent, Typography, CardActions, IconButton, makeStyles, CardActionArea, Checkbox, Menu, MenuItem, Button} from '@material-ui/core'
+import { Dialog, DialogContent, DialogTitle, DialogActions, TextField } from '@material-ui/core'
+import { Delete, MoreHoriz, Edit } from '@material-ui/icons'
 import {connect} from 'react-redux'
 import { Skeleton } from '@material-ui/lab'
 import { fetchTasks, deleteTask, updateTask } from '../redux/actions/TodoAction'
@@ -28,9 +29,60 @@ function TaskCard(props) {
     props.updateTask(props.id,{completed, task: props.taskName}, props.idx)
   }
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen ] = useState(false)
+  const [task, setTask] = useState(props.taskName)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openDialog = () => {
+    setOpen(true)
+  }
+
+  const closeDialog = () => {
+    setOpen(false)
+  }
+
+  const onChange = (e) => {
+    setTask(e.target.value)
+  }
+
+  const saveDialog = (e) => {
+    props.updateTask(props.id,{task, completed: props.completed}, props.idx)
+    closeDialog()
+  }
+
   const classes = useStyles()
   return (
-      <div className={classes.root}>
+      <div>
+
+        <Dialog open={open} onClose={closeDialog} maxWidth={'sm'} fullWidth>
+          <DialogTitle>Edit Task</DialogTitle>
+          <DialogContent>
+            <TextField
+            autoFocus
+            name='task'
+            label='Enter a new value'
+            fullWidth
+            value = {task}
+            onChange = {onChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button color='primary' onClick={closeDialog}>
+              Cancel
+            </Button>
+            <Button color='primary' variant='contained' onClick={saveDialog}>
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <Card className={classes.card}>
           <CardActionArea >
@@ -43,9 +95,19 @@ function TaskCard(props) {
 
           </CardActionArea>
           <CardActions>
-            <IconButton onClick={handleDelete} disabled={props.load}>
-              <Delete color='secondary'/>
+            <IconButton onClick={handleClick}>
+              <MoreHoriz/>
             </IconButton>
+            <Menu
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            >
+              <MenuItem onClick={handleDelete}><Delete color='secondary' /> Delete</MenuItem>
+              <MenuItem onClick={openDialog} > <Edit color='primary'/> Edit </MenuItem>
+            </Menu>
+            
           </CardActions>
         </Card>
         </div>
