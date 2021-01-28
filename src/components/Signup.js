@@ -7,6 +7,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signupAction, clearSnackBar } from '../redux/actions/SignupAction'
+import Loader from './Loader'
+
 const initialValues = {
     fullname:'',
     email: '',
@@ -28,6 +30,9 @@ const loginForm = Yup.object().shape({
 })
 
 const useStyles = makeStyles((theme) => ({
+  root:{
+    height: '60vh'
+  },
   titleBox: {
     marginBottom: theme.spacing(5)
   },
@@ -39,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   formButtons: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     width: '100%'
   }
 }))
@@ -60,15 +66,19 @@ function Signup(props) {
     props.clearSnackBar()
   }
 
+  if(props.signup.success){
+    props.history.push('/success')
+  }
 
   return(
     <Grid 
     container
     justify='center'
     alignItems='center'
+    className = {classes.root}
     >
       <CssBaseline/>
-
+      <Loader open={props.signup.pending}/>
       <Snackbar
       open={props.signup.snackBarMessage}
       onClose={closeSnackBarTimer}
@@ -115,7 +125,6 @@ function Signup(props) {
                   name= 'email'
                   type='email' 
                   fullWidth 
-                  autoFocus
                   required
                   variant='outlined'
                   />

@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Todo from './components/Todo'
 import NavBar from './components/Navbar'
+import SuccessPage from './components/SuccessPage'
 
 function App (){
  
@@ -15,6 +16,7 @@ function App (){
                 <Route path='/' exact component={Todo} />
                 <Route path='/login' exact component={Login} />
                 <Route path='/signup' exact component={Signup} />
+                <Route path='/success' exact component={SuccessPage} />
             </Switch>
         </Router>
        </> 

@@ -16,8 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    textDecorationLine: 'none',
+    color: 'inherit'
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar
 }));
 
 const userToken = localStorage.getItem("loginToken");
@@ -36,7 +38,7 @@ export default function NavBar(props) {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" href='/' component='a' className={classes.title}>
             Todo app
           </Typography>
           {userToken && <IconButton onClick={logOut} href='/login'>
@@ -44,7 +46,7 @@ export default function NavBar(props) {
           </IconButton>}
         </Toolbar>
       </AppBar>
-      <Paper>
+      <Paper elevation={0}>
         <div className={classes.toolbar} />
       </Paper>
     </div>

@@ -30,8 +30,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   formButtons: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(4),
     width: '100%'
+  },
+  root:{
+    height: '50vh'
   }
 }))
 
@@ -71,6 +75,7 @@ function Login (props) {
     container
     justify='center'
     alignItems='center'
+    className={classes.root}
     >
       <CssBaseline/>
 
@@ -91,7 +96,7 @@ function Login (props) {
 
         
         <div className={classes.titleBox}>
-        <Typography variant='h5' align='center'>Log in to access your tasks</Typography>
+        <Typography variant='h5' align='center'>Log In</Typography>
         <Divider/>
         </div>
         <div className={classes.createForm}>

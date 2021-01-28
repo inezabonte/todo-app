@@ -53,7 +53,7 @@ function TaskCard(props) {
     setTask(e.target.value)
   }
 
-  const saveDialog = (e) => {
+  const saveEdits = (e) => {
     props.updateTask(props.id,{task, completed: props.completed}, props.idx)
     closeDialog()
   }
@@ -72,13 +72,14 @@ function TaskCard(props) {
             fullWidth
             value = {task}
             onChange = {onChange}
+            required
             />
           </DialogContent>
           <DialogActions>
             <Button color='primary' onClick={closeDialog}>
               Cancel
             </Button>
-            <Button color='primary' variant='contained' onClick={saveDialog}>
+            <Button color='primary' variant='contained' onClick={saveEdits} disabled={!task}>
               Save
             </Button>
           </DialogActions>
