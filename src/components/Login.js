@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Login (props) {
-  const classes = useStyles()
 
   useEffect(() => {
     const userToken = localStorage.getItem("loginToken");
@@ -45,6 +44,9 @@ function Login (props) {
             props.history.push('/');
         }
   }, [])
+
+  const classes = useStyles()
+
 
   const handleSubmition = (payload, {resetForm}) => {
     props.LoginAction(payload)

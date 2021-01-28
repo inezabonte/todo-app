@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux';
 import { fetchTasks } from '../redux/actions/TodoAction'
-import { Typography, Grid, makeStyles, FormGroup, TextField, CssBaseline, Container, Button, Slide, Snackbar } from '@material-ui/core'
+import { Grid, makeStyles, FormGroup, TextField, CssBaseline, Button, Slide, Snackbar } from '@material-ui/core'
 import { Field, Form, Formik } from 'formik';
 import { Add } from "@material-ui/icons";
 import TaskCard from './TaskCard'
 import { createTask, clearSnackBar } from '../redux/actions/TodoAction'
 import MuiAlert from '@material-ui/lab/Alert';
-
 
 const initialValues = {
     task: ''
@@ -70,9 +69,9 @@ function Todo(props){
             </Snackbar>
                 <Grid
                 container
-                justify='center'
                 alignContent='center'
                 spacing={4}
+                direction='column'
                 >
                 <Grid item md={5} sm={8} xs={12}>
                     <Formik
@@ -95,17 +94,17 @@ function Todo(props){
 
                     </Formik>
                 </Grid>
-                <Grid item md={8} sm={8} xs={12}>
+                <Grid item md={5} sm={8} xs={12}>
                     <Grid
                      container
                      justify='center'
                      spacing={1}
                     >
-                        {props.tasks.pending ? skeletonData : props.tasks.tasks.map((task, index) => (
-                        <Grid item sm={12} xs={12} key={task.id}>
-                        <TaskCard taskName={task.task} idx={index} id={task.id} completed={task.completed}/>
-                        </Grid>
-                        ))}
+                            {props.tasks.pending ? skeletonData : props.tasks.tasks.map((task, index) => (
+                            <Grid item md={12} sm={12} xs={12} key={task.id}>
+                            <TaskCard taskName={task.task} idx={index} id={task.id} completed={task.completed}/>
+                            </Grid>
+                            ))}
                     </Grid>
                 </Grid>
             </Grid>
