@@ -12,9 +12,9 @@ const initialValues = {
     task: ''
 }
 
-
-
 const useStyles = makeStyles((theme) => ({
+    root: {
+    },
     addButton: {
         width:'100%',
         marginTop: theme.spacing(2)
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const skeletonData = (<Grid item sm={12} xs={12}><TaskCard/></Grid>)
+const skeletonData = (<Grid item md={7} sm={12} xs={12}><TaskCard/></Grid>)
 
 
 function Todo(props){
@@ -67,13 +67,14 @@ function Todo(props){
                     {props.tasks.snackBarMessage.message}
                 </MuiAlert>
             </Snackbar>
+
                 <Grid
                 container
-                alignContent='center'
-                spacing={4}
-                direction='column'
+                spacing={2}
+                className={classes.root}
+                justify='center'
                 >
-                <Grid item md={5} sm={8} xs={12}>
+                <Grid item md={4} sm={8} xs={12}>
                     <Formik
                     initialValues={initialValues}
                     onSubmit={handleSubmition}
@@ -94,14 +95,15 @@ function Todo(props){
 
                     </Formik>
                 </Grid>
-                <Grid item md={5} sm={8} xs={12}>
+                <Grid item md={9} sm={8} xs={12}>
                     <Grid
                      container
-                     justify='center'
                      spacing={1}
+                     justify='center'
+                     
                     >
                             {props.tasks.pending ? skeletonData : props.tasks.tasks.map((task, index) => (
-                            <Grid item md={12} sm={12} xs={12} key={task.id}>
+                            <Grid item md={7} sm={12} xs={12} key={task.id}>
                             <TaskCard taskName={task.task} idx={index} id={task.id} completed={task.completed}/>
                             </Grid>
                             ))}

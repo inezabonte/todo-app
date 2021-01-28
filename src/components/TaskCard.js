@@ -89,9 +89,12 @@ function TaskCard(props) {
           <CardActionArea >
             <CardContent className={classes.CardContent}>
               <Checkbox checked={props.completed} name='completed' onChange={handleCheckBox}/>
+              {props.pending ? (<Skeleton variant='rect' width='100%'/>) 
+              :
               <Typography  variant='h6' component='h2'>
-                {props.pending ? (<Skeleton variant='text'/>) : props.taskName}
-              </Typography>
+                { props.taskName}
+              </Typography>}
+              
             </CardContent>
 
           </CardActionArea>
