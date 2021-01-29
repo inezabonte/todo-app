@@ -24,7 +24,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const skeletonData = (<Grid item md={7} sm={12} xs={12}><TaskCard/></Grid>)
+const skeletonData = (
+    <>
+        <Grid item md={7} sm={12} xs={12}><TaskCard/></Grid>
+        <Grid item md={7} sm={12} xs={12}><TaskCard/></Grid>
+        <Grid item md={7} sm={12} xs={12}><TaskCard/></Grid>
+        
+    </>
+    )
 
 
 function Todo(props){
