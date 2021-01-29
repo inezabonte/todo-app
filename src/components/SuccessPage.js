@@ -32,7 +32,7 @@ function SuccessPage() {
             <div className={classes.div1}>
                 <img src={check} className={classes.imags} />
                 <Typography variant='h5' align='center'>Account Successfully created 🎉 </Typography>
-                <Button color='primary' variant='outlined' href='/login' fullWidth>LOGIN TO VIEW YOUR TASKS</Button>
+                <Button color='primary' variant='contained' href='/login' fullWidth>LOGIN TO CREATE TASKS</Button>
             </div>
                
         </Container>
