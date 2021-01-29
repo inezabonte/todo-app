@@ -12,7 +12,7 @@ export const LoginAction = (logindata) => dispatch => {
 
     return axios.post('https://todo-app-ineza.herokuapp.com/api/v1/user/login',logindata)
     .then((res) => {
-        localStorage.setItem('loginToken', res.data.userToken)
+        window.localStorage.setItem('loginToken', res.data.userToken)
         dispatch({
             type: LOGIN_SUCCESS
         })

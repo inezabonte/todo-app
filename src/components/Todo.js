@@ -29,11 +29,13 @@ const skeletonData = (<Grid item md={7} sm={12} xs={12}><TaskCard/></Grid>)
 
 function Todo(props){
     useEffect(() => {
+        
         const userToken = localStorage.getItem("loginToken");
         if(!userToken){
             return props.history.push('/login');
         }
         props.fetchTasks()
+
     }, [])
 
     const classes = useStyles()

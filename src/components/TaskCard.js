@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTitle, DialogActions, TextField } from '@m
 import { Delete, MoreHoriz, Edit } from '@material-ui/icons'
 import {connect} from 'react-redux'
 import { Skeleton } from '@material-ui/lab'
-import { fetchTasks, deleteTask, updateTask } from '../redux/actions/TodoAction'
+import {deleteTask, updateTask } from '../redux/actions/TodoAction'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -47,6 +47,7 @@ function TaskCard(props) {
 
   const closeDialog = () => {
     setOpen(false)
+    handleClose()
   }
 
   const onChange = (e) => {
@@ -123,4 +124,4 @@ const mapStateToProps = state => ({
   load: state.todo.load
 })
 
-export default connect(mapStateToProps, {fetchTasks, deleteTask, updateTask})(TaskCard)
+export default connect(mapStateToProps, {deleteTask, updateTask})(TaskCard)

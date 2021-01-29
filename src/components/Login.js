@@ -67,7 +67,7 @@ function Login (props) {
 
 
   if(props.login.success){
-    props.history.push('/')
+    return window.location.pathname= '/'
   }
 
   return(
@@ -78,7 +78,6 @@ function Login (props) {
     className={classes.root}
     >
       <CssBaseline/>
-
       <Snackbar
       open={props.login.snackBarMessage}
       onClose={closeSnackBarTimer}
