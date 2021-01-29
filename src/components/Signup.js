@@ -31,7 +31,10 @@ const loginForm = Yup.object().shape({
 
 const useStyles = makeStyles((theme) => ({
   root:{
-    height: '60vh'
+    height: '60vh',
+    [theme.breakpoints.down('md')]: {
+      height: '80vh'
+  },
   },
   titleBox: {
     marginBottom: theme.spacing(5)

@@ -35,7 +35,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100%'
   },
   root:{
-    height: '50vh'
+    height: '50vh',
+    [theme.breakpoints.down('md')]: {
+      height: '60vh'
+  },
   }
 }))
 
