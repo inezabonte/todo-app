@@ -1,7 +1,6 @@
 import React from 'react'
 import { Typography, Container, makeStyles, Button} from '@material-ui/core'
 import check from '../assets/images/check.svg'
-import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -17,7 +16,14 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         height:"40%",
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        [theme.breakpoints.down('md')]: {
+            height: '60%'
+        },
+        [theme.breakpoints.down('xs')]: {
+            height: '70%'
+        }
+
     },
    
     
