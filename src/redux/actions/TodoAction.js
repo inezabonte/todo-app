@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axios'
 
 export const FETCH_TASKS_SUCCESS = 'FETCH_TASKS_SUCCESS'
 export const FETCH_TASKS_ERROR = 'FETCH_TASKS_ERROR'
@@ -21,11 +21,7 @@ const token = window.localStorage.getItem('loginToken')
 
 
 export const fetchTasks = () => dispatch => {
-    return axios.get('https://todo-app-ineza.herokuapp.com/api/v1/todo', {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+    return axios.get('/todo')
     .then(res => {
         dispatch({
             type: FETCH_TASKS_SUCCESS,
@@ -45,11 +41,7 @@ export const createTask = (payload) => dispatch => {
         type: CREATE_TASK_PENDING
     })
 
-    return axios.post('https://todo-app-ineza.herokuapp.com/api/v1/todo', payload, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+    return axios.post('/todo', payload)
     .then((res) => {
         dispatch({
             type: CREATE_TASK_SUCCESS,
@@ -64,15 +56,12 @@ export const createTask = (payload) => dispatch => {
     })
 }
 
-export const deleteTask = (id, index) => dispatch => {
+export const deleteTask = (taskId, index) => dispatch => {
     dispatch({
         type: DELETE_TASK_PENDING
     })
-    return axios.delete('https://todo-app-ineza.herokuapp.com/api/v1/todo',{
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
-        params:{id}
+    return axios.delete('/todo',{
+        params:{taskId}
     })
     .then(() => {
         dispatch({
@@ -88,18 +77,15 @@ export const deleteTask = (id, index) => dispatch => {
     })
 }
 
-export const updateTask = (id, payload, index) => dispatch => {
+export const updateTask = (taskId, payload, index) => dispatch => {
     dispatch({
         type: UPDATE_TASK_PENDING
     })
-    return axios.patch('https://todo-app-ineza.herokuapp.com/api/v1/todo', payload, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
-        params:{id}
+    return axios.patch('/todo', payload, {
+        params:{taskId}
     })
     .then(() => {
-        payload.id = id
+        payload.id = taskId
         dispatch({
             type: UPDATE_TASK_SUCCESS,
             index,

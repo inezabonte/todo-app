@@ -109,7 +109,7 @@ function TaskCard(props) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
             >
-              <MenuItem onClick={handleDelete}><Delete color='secondary' /> Delete</MenuItem>
+              <MenuItem onClick={handleDelete}><Delete color='secondary' />Delete</MenuItem>
               <MenuItem onClick={openDialog} > <Edit color='primary'/> Edit </MenuItem>
             </Menu>
             

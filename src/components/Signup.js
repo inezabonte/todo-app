@@ -17,7 +17,7 @@ const initialValues = {
 }
 
 const loginForm = Yup.object().shape({
-    fullname: Yup.string().required("Required"),
+    fullname: Yup.string().required("Required").min(3, "Too short"),
     email: Yup.string().email("Invalid  email format").required('Required'),
     password: Yup.string().min(8, 'At least 8 characters').required('Required'),
     confirmpassword: Yup.string().required("Required").when('password', {

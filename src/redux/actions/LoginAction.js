@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axios'
 
 export const LOGIN_PENDING = 'LOGIN_PENDING'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -9,9 +9,9 @@ export const LoginAction = (logindata) => dispatch => {
     dispatch({
         type: LOGIN_PENDING
     })
-
-    return axios.post('https://todo-app-ineza.herokuapp.com/api/v1/user/login',logindata)
+    return axios.post('/user/login',logindata)
     .then((res) => {
+        console.log(res)
         window.localStorage.setItem('loginToken', res.data.userToken)
         dispatch({
             type: LOGIN_SUCCESS

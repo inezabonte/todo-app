@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from './axios'
 
 export const SIGNUP_LOADING = 'SIGNUP_LOADING'
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
@@ -10,7 +10,7 @@ export const signupAction = (payload) => dispatch => {
     dispatch({
         type: SIGNUP_LOADING
     })
-    return axios.post('https://todo-app-ineza.herokuapp.com/api/v1/user/signup', {
+    return axios.post('/user/signup', {
         name: fullname,
         email,
         password
