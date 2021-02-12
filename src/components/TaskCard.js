@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import { Card, CardContent, Typography, CardActions, IconButton, makeStyles, CardActionArea, Checkbox, Menu, MenuItem, Button} from '@material-ui/core'
 import { Dialog, DialogContent, DialogTitle, DialogActions, TextField } from '@material-ui/core'
 import { Delete, MoreHoriz, Edit } from '@material-ui/icons'
-import {connect} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import { Skeleton } from '@material-ui/lab'
-import {deleteTask, updateTask } from '../redux/actions/TodoAction'
+import {DELETE_TASK, UPDATE_TASK} from '../redux/actions/TodoAction'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -19,14 +19,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-function TaskCard(props) {  
-  const handleDelete = () => {
-    props.deleteTask(props.id, props.idx)
-  }
+function TaskCard(props) {
+  const dispatch = useDispatch()
+  
+  const handleDelete = () => (
+    dispatch({
+      type: DELETE_TASK,
+      index: props.idx
+    })
+  )
 
   const handleCheckBox = (event) => {
     const completed = event.target.checked
-    props.updateTask(props.id,{completed, task: props.taskName}, props.idx)
+    return dispatch({
+      type: UPDATE_TASK,
+      payload: {completed, task: props.taskName},
+      index: props.idx
+    })
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,9 +63,13 @@ function TaskCard(props) {
     setTask(e.target.value)
   }
 
-  const saveEdits = (e) => {
-    props.updateTask(props.id,{task, completed: props.completed}, props.idx)
+  const saveEdits = () => {
     closeDialog()
+    return dispatch({
+      type: UPDATE_TASK,
+      payload: {task, completed: props.completed},
+      index: props.idx
+    })
   }
 
   const classes = useStyles()
@@ -90,11 +103,9 @@ function TaskCard(props) {
           <CardActionArea >
             <CardContent className={classes.CardContent}>
               <Checkbox checked={props.completed} name='completed' onChange={handleCheckBox}/>
-              {props.pending ? (<Skeleton variant='rect' width='100%'/>) 
-              :
               <Typography  variant='h6' component='h2'>
                 { props.taskName}
-              </Typography>}
+              </Typography>
               
             </CardContent>
 
@@ -119,9 +130,4 @@ function TaskCard(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  pending: state.todo.pending,
-  load: state.todo.load
-})
-
-export default connect(mapStateToProps, {deleteTask, updateTask})(TaskCard)
+export default TaskCard

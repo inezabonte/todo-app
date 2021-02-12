@@ -4,8 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
-import IconButton from '@material-ui/core/IconButton';
-import { ExitToApp } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,9 +39,6 @@ export default function NavBar(props) {
           <Typography variant="h6" href='/' component='a' className={classes.title}>
             Todo app
           </Typography>
-          {userToken && <IconButton onClick={logOut} href='/login'>
-            <ExitToApp className={classes.exitButton} />
-          </IconButton>}
         </Toolbar>
       </AppBar>
       <Paper elevation={0}>

@@ -1,15 +1,14 @@
 import React, {useEffect} from 'react'
-import { connect } from 'react-redux';
-import { fetchTasks } from '../redux/actions/TodoAction'
-import { Grid, makeStyles, FormGroup, TextField, CssBaseline, Button, Slide, Snackbar } from '@material-ui/core'
+import { connect, useDispatch } from 'react-redux';
+import { Grid, makeStyles, FormGroup, TextField, CssBaseline, Button} from '@material-ui/core'
 import { Field, Form, Formik } from 'formik';
 import { Add } from "@material-ui/icons";
 import TaskCard from './TaskCard'
-import { createTask, clearSnackBar } from '../redux/actions/TodoAction'
-import MuiAlert from '@material-ui/lab/Alert';
+import {CREATE_TASK, FETCH_TASKS} from '../redux/actions/TodoAction'
 
 const initialValues = {
-    task: ''
+    task: '',
+    completed: false
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -35,47 +34,34 @@ const skeletonData = (
 
 
 function Todo(props){
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        
-        const userToken = localStorage.getItem("loginToken");
-        if(!userToken){
-            return props.history.push('/login');
+        const storedTasks = JSON.parse(localStorage.getItem("tasks"))
+        if(storedTasks != null){
+            dispatch({
+                type: FETCH_TASKS,
+                payload: storedTasks
+            })
         }
-        props.fetchTasks()
 
     }, [])
 
+   
+
     const classes = useStyles()
 
-    const TransitionUp = (props) => {
-        return <Slide {...props} direction="up" />;
-      }
-
     const handleSubmition = (payload, {resetForm}) => {
-        props.createTask(payload)
-        resetForm({payload: ''})
+        dispatch({
+            type: CREATE_TASK,
+            payload: payload
+        })
+        resetForm({payload: ""})
     }
 
-    const closeSnackBarTimer = () => {
-        props.clearSnackBar()
-      }
-
     return(
-        
         <>
             <CssBaseline/>
-            <Snackbar
-                open={props.tasks.snackBarMessage.open}
-                onClose={closeSnackBarTimer}
-                autoHideDuration={5000}
-                TransitionComponent={TransitionUp}>
-                <MuiAlert 
-                    severity={props.tasks.snackBarMessage.severity}
-                    variant="filled"
-                    elevation={6}>
-                    {props.tasks.snackBarMessage.message}
-                </MuiAlert>
-            </Snackbar>
 
                 <Grid
                 container
@@ -99,7 +85,7 @@ function Todo(props){
                                 required={true}
                                 />
                             </FormGroup>
-                            <Button type='submit' size="large" variant='contained' color='primary' className={classes.addButton} disabled={props.tasks.load}> <Add/> Add</Button>
+                            <Button type='submit' size="large" variant='contained' color='primary' className={classes.addButton}> <Add/> Add</Button>
                         </Form>
 
                     </Formik>
@@ -111,9 +97,9 @@ function Todo(props){
                      justify='center'
                      
                     >
-                            {props.tasks.pending ? skeletonData : props.tasks.tasks.map((task, index) => (
-                            <Grid item md={7} sm={12} xs={12} key={task.id}>
-                            <TaskCard taskName={task.task} idx={index} id={task.id} completed={task.completed}/>
+                            {props.tasks && props.tasks.map((task, index) => (
+                            <Grid item md={7} sm={12} xs={12} key={index}>
+                            <TaskCard taskName={task.task} idx={index}  completed={task.completed}/>
                             </Grid>
                             ))}
                     </Grid>
@@ -124,7 +110,7 @@ function Todo(props){
 }
 
 const mapStateToProps = state => ({
-    tasks: state.todo
+    tasks: state.todo.tasks
 })
 
-export default connect(mapStateToProps, {fetchTasks, createTask, clearSnackBar})(Todo)
+export default connect(mapStateToProps, null)(Todo)
