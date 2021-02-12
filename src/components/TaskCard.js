@@ -63,9 +63,13 @@ function TaskCard(props) {
     setTask(e.target.value)
   }
 
-  const saveEdits = (e) => {
-    props.updateTask(props.id,{task, completed: props.completed}, props.idx)
+  const saveEdits = () => {
     closeDialog()
+    return dispatch({
+      type: UPDATE_TASK,
+      payload: {task, completed: props.completed},
+      index: props.idx
+    })
   }
 
   const classes = useStyles()
@@ -99,11 +103,9 @@ function TaskCard(props) {
           <CardActionArea >
             <CardContent className={classes.CardContent}>
               <Checkbox checked={props.completed} name='completed' onChange={handleCheckBox}/>
-              {props.pending ? (<Skeleton variant='rect' width='100%'/>) 
-              :
               <Typography  variant='h6' component='h2'>
                 { props.taskName}
-              </Typography>}
+              </Typography>
               
             </CardContent>
 
