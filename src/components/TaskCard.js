@@ -31,7 +31,11 @@ function TaskCard(props) {
 
   const handleCheckBox = (event) => {
     const completed = event.target.checked
-    props.updateTask({completed, task: props.taskName}, props.idx)
+    return dispatch({
+      type: UPDATE_TASK,
+      payload: {completed, task: props.taskName},
+      index: props.idx
+    })
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
