@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Checkbox, Menu, Modal, Input } from 'antd'
-import { EllipsisOutlined, DeleteFilled } from '@ant-design/icons'
-import { Delete, Edit } from '@material-ui/icons'
-import {useDispatch} from 'react-redux'
+import React, {useEffect } from "react";
+import { Checkbox, Card, Button, List} from 'antd'
+import { DeleteOutlined } from '@ant-design/icons'
+import {useDispatch, connect} from 'react-redux'
 import {FETCH_TASKS, DELETE_TASK, UPDATE_TASK} from '../../redux/actions/TodoAction'
 
-const { SubMenu } = Menu
-
-function TaskCard(props) {
+function TodoList(props) {
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -21,78 +18,40 @@ function TaskCard(props) {
 
 }, [])
 
-  const handleDelete = () => (
+  const handleDelete = (index) => (
     dispatch({
       type: DELETE_TASK,
-      index: props.idx
+      index
     })
   )
 
-
-  const [open, setOpen ] = useState(false)
-  const [task, setTask] = useState(props.taskName)
-
-  const openDialog = () => {
-    setOpen(true)
-  }
-
-  const closeDialog = () => {
-    setOpen(false)
-  }
-
-  const onChange = (e) => {
-    setTask(e.target.value)
-  }
-
-  const saveEdits = () => {
-    closeDialog()
+  const handleCheckBox = (e) => {
+    const completed = e.target.checked
     return dispatch({
       type: UPDATE_TASK,
-      payload: {task, completed: props.completed},
-      index: props.idx
+      payload: {completed, task: e.target.value},
+      index: e.target.id
     })
   }
 
   return (
-      <div>
-
-        <Modal
-        visible={open} 
-        title='Edit Task'
-        okText='Save'
-        onOk={saveEdits}
-        onCancel={closeDialog}
-        okButtonProps={{disabled: !task}}
-        >
-            <Input
-              label='Enter a new value'
-              value = {task}
-              onChange = {onChange}
-            />
-        </Modal>
-
-        <div>
-          <div>
-            <Checkbox type='checkbox' onChange={handleCheckBox} checked={props.completed}>{props.taskName}</Checkbox>
-          </div>
-            <Menu >
-              <SubMenu icon={<EllipsisOutlined/>}>
-                <Menu.Item onClick={handleDelete}><DeleteFilled style={{color: 'red', fontSize: '1rem'}} /> Delete</Menu.Item>
-                <Menu.Item onClick={openDialog} > <Edit color='primary'/> Edit </Menu.Item>
-              </SubMenu>
-            </Menu>
-        </div>
-
+      <Card title='Todo List'>
+        
         <List
             dataSource={props.tasks}
             renderItem={(item, index) => (
                 <List.Item>
                     <Checkbox onChange={handleCheckBox} checked={item.completed} value={item.task} id={index}>{item.task}</Checkbox>
+                    <Button onClick={handleDelete} type='text' shape='circle' icon={<DeleteOutlined style={{color: 'red'}} />}/>
                 </List.Item>
             )}
             />
-      </div>
+      </Card>
   );
 }
 
-export default TaskCard
+const mapStateToProps = state => ({
+  tasks: state.todo.tasks
+})
+
+export default connect(mapStateToProps, null)(TodoList)
