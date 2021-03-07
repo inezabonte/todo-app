@@ -1,23 +1,11 @@
-import React, {useState} from "react";
-import { Card, CardContent, Typography, CardActions, IconButton, makeStyles, CardActionArea, Checkbox, Menu, MenuItem, Button} from '@material-ui/core'
-import { Dialog, DialogContent, DialogTitle, DialogActions, TextField } from '@material-ui/core'
-import { Delete, MoreHoriz, Edit } from '@material-ui/icons'
+import React, { useState } from "react";
+import { Checkbox, Menu, Modal, Input } from 'antd'
+import { EllipsisOutlined, DeleteFilled } from '@ant-design/icons'
+import { Delete, Edit } from '@material-ui/icons'
 import {useDispatch} from 'react-redux'
-import { Skeleton } from '@material-ui/lab'
 import {DELETE_TASK, UPDATE_TASK} from '../redux/actions/TodoAction'
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    backgroundColor: '#eeeeee',
-    borderRadius: 0,                                                                 
-  },
-  CardContent:{
-    display: 'flex',
-    alignItems: 'center'
-  }
-}))
+const { SubMenu } = Menu
 
 function TaskCard(props) {
   const dispatch = useDispatch()
@@ -29,26 +17,9 @@ function TaskCard(props) {
     })
   )
 
-  const handleCheckBox = (event) => {
-    const completed = event.target.checked
-    return dispatch({
-      type: UPDATE_TASK,
-      payload: {completed, task: props.taskName},
-      index: props.idx
-    })
-  }
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen ] = useState(false)
   const [task, setTask] = useState(props.taskName)
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const openDialog = () => {
     setOpen(true)
@@ -56,7 +27,6 @@ function TaskCard(props) {
 
   const closeDialog = () => {
     setOpen(false)
-    handleClose()
   }
 
   const onChange = (e) => {
@@ -72,60 +42,35 @@ function TaskCard(props) {
     })
   }
 
-  const classes = useStyles()
   return (
       <div>
 
-        <Dialog open={open} onClose={closeDialog} maxWidth={'sm'} fullWidth>
-          <DialogTitle>Edit Task</DialogTitle>
-          <DialogContent>
-            <TextField
-            autoFocus
-            name='task'
-            label='Enter a new value'
-            fullWidth
-            value = {task}
-            onChange = {onChange}
-            required
+        <Modal
+        visible={open} 
+        title='Edit Task'
+        okText='Save'
+        onOk={saveEdits}
+        onCancel={closeDialog}
+        okButtonProps={{disabled: !task}}
+        >
+            <Input
+              label='Enter a new value'
+              value = {task}
+              onChange = {onChange}
             />
-          </DialogContent>
-          <DialogActions>
-            <Button color='primary' onClick={closeDialog}>
-              Cancel
-            </Button>
-            <Button color='primary' variant='contained' onClick={saveEdits} disabled={!task}>
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
+        </Modal>
 
-        <Card className={classes.card}>
-          <CardActionArea >
-            <CardContent className={classes.CardContent}>
-              <Checkbox checked={props.completed} name='completed' onChange={handleCheckBox}/>
-              <Typography  variant='h6' component='h2'>
-                { props.taskName}
-              </Typography>
-              
-            </CardContent>
-
-          </CardActionArea>
-          <CardActions>
-            <IconButton onClick={handleClick}>
-              <MoreHoriz/>
-            </IconButton>
-            <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            >
-              <MenuItem onClick={handleDelete}><Delete color='secondary' />Delete</MenuItem>
-              <MenuItem onClick={openDialog} > <Edit color='primary'/> Edit </MenuItem>
+        <div>
+          <div>
+            <Checkbox type='checkbox' onChange={handleCheckBox} checked={props.completed}>{props.taskName}</Checkbox>
+          </div>
+            <Menu >
+              <SubMenu icon={<EllipsisOutlined/>}>
+                <Menu.Item onClick={handleDelete}><DeleteFilled style={{color: 'red', fontSize: '1rem'}} /> Delete</Menu.Item>
+                <Menu.Item onClick={openDialog} > <Edit color='primary'/> Edit </Menu.Item>
+              </SubMenu>
             </Menu>
-            
-          </CardActions>
-        </Card>
+        </div>
         </div>
   );
 }
