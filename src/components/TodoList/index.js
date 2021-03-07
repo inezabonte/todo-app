@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox, Menu, Modal, Input } from 'antd'
 import { EllipsisOutlined, DeleteFilled } from '@ant-design/icons'
 import { Delete, Edit } from '@material-ui/icons'
 import {useDispatch} from 'react-redux'
-import {DELETE_TASK, UPDATE_TASK} from '../redux/actions/TodoAction'
+import {FETCH_TASKS, DELETE_TASK, UPDATE_TASK} from '../../redux/actions/TodoAction'
 
 const { SubMenu } = Menu
 
 function TaskCard(props) {
   const dispatch = useDispatch()
   
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("tasks"))
+    if(storedTasks != null){
+        dispatch({
+            type: FETCH_TASKS,
+            payload: storedTasks
+        })
+    }
+
+}, [])
+
   const handleDelete = () => (
     dispatch({
       type: DELETE_TASK,
@@ -71,7 +82,16 @@ function TaskCard(props) {
               </SubMenu>
             </Menu>
         </div>
-        </div>
+
+        <List
+            dataSource={props.tasks}
+            renderItem={(item, index) => (
+                <List.Item>
+                    <Checkbox onChange={handleCheckBox} checked={item.completed} value={item.task} id={index}>{item.task}</Checkbox>
+                </List.Item>
+            )}
+            />
+      </div>
   );
 }
 
