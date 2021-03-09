@@ -8,16 +8,20 @@ import './style.css'
 function AddTodo(){
     const dispatch = useDispatch()
 
+    const [form] = Form.useForm();
+
     const handleSubmition = (payload) => {
         dispatch({
             type: CREATE_TASK,
             payload: payload
         })
+        form.resetFields();
     }
 
     return(
         <Card title='Add Todo' bodyStyle={{paddingTop: '40px'}}>
             <Form
+            form={form}
             onFinish = {handleSubmition}
             initialValues={{task: ''}}
             layout='horizontal'
@@ -29,7 +33,7 @@ function AddTodo(){
                         name='task'
                         rules={[{ required: true, message: 'This field is required' }]}
                         >
-                            <Input placeholder='Create a task'/>
+                            <Input placeholder='Create a task' allowClear />
                         </Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={8} lg={6} xl={4}>
