@@ -1,5 +1,5 @@
 import React, {useEffect } from "react";
-import { Checkbox, Card, Button, List} from 'antd'
+import { Checkbox, Card, Button, List, Tooltip} from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import {useDispatch, connect} from 'react-redux'
 import {FETCH_TASKS, DELETE_TASK, UPDATE_TASK} from '../../redux/actions/TodoAction'
@@ -42,7 +42,7 @@ function TodoList(props) {
             renderItem={(item, index) => (
                 <List.Item>
                     <Checkbox onChange={handleCheckBox} checked={item.completed} value={item.task} id={index}>{item.task}</Checkbox>
-                    <Button onClick={handleDelete} type='text' shape='circle' icon={<DeleteOutlined style={{color: 'red'}} />}/>
+                    <Button onClick={() => handleDelete(index)} shape='circle' id={index} icon={<DeleteOutlined style={{color: 'red'}}/>}/>
                 </List.Item>
             )}
             />
