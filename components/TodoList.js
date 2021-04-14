@@ -9,16 +9,16 @@ const { Text } = Typography
 function TodoList(props) {
   const dispatch = useDispatch()
   
-  useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks"))
-    if(storedTasks != null){
-        dispatch({
-            type: FETCH_TASKS,
-            payload: storedTasks
-        })
-    }
+//   useEffect(() => {
+//     const storedTasks = JSON.parse(localStorage.getItem("tasks"))
+//     if(storedTasks != null){
+//         dispatch({
+//             type: FETCH_TASKS,
+//             payload: storedTasks
+//         })
+//     }
 
-}, [])
+// }, [])
 
   const handleDelete = (index) => (
     dispatch({
