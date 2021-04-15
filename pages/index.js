@@ -13,9 +13,9 @@ export default function index (){
                 <link rel="icon" href="/favicon.ico" />
                 <link rel='manifest' href='/manifest.json' />
 
-                <link href='/images/favicon-16x16.png' rel='icon' type='image/png' sizes='16x16' />
-                <link href='/images/favicon-32x32.png' rel='icon' type='image/png' sizes='32x32' />
-                <link rel='/images/apple-touch-icon' href='/apple-icon.png'></link>
+                <link rel='icon' href='/images/favicon-16x16.png' type='image/png' sizes='16x16' />
+                <link rel='icon' href='/images/favicon-32x32.png' type='image/png' sizes='32x32' />
+                <link rel='apple-touch-icon' href='/images/apple-icon.png' />
                 <meta name='theme-color' content='#ffffff' />
             </Head>
             <Row
