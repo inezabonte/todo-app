@@ -2,21 +2,18 @@ import React, { useEffect } from "react";
 import { Checkbox, Card, Button, List, Typography} from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
-import {deleteTask, updateTask} from '../redux/actions/action'
+import {deleteTask, updateTask, fetchTasks} from '../redux/actions/action'
 
 const { Text } = Typography
 
 function TodoList(props) {  
-//   useEffect(() => {
-//     const storedTasks = JSON.parse(localStorage.getItem("tasks"))
-//     if(storedTasks != null){
-//         dispatch({
-//             type: FETCH_TASKS,
-//             payload: storedTasks
-//         })
-//     }
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("tasks"))
+    if(storedTasks != null){
+        props.fetchTasks(storedTasks)
+    }
 
-// }, [])
+}, [])
 
   const handleDelete = (index) => (
     props.deleteTask(index)
@@ -53,4 +50,4 @@ const mapStateToProps = state => ({
   tasks: state.todo.tasks
 })
 
-export default connect(mapStateToProps, { deleteTask, updateTask })(TodoList)
+export default connect(mapStateToProps, { deleteTask, updateTask, fetchTasks })(TodoList)

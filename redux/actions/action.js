@@ -1,5 +1,12 @@
 import * as t from './types'
 
+export const fetchTasks = (payload) => (dispatch) => (
+    dispatch({
+        type: t.FETCH_TASKS,
+        payload
+    })
+)
+
 export const createTask = (payload) => (dispatch) => (
     dispatch({
         type: t.CREATE_TASK,
