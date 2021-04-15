@@ -1,16 +1,19 @@
-import React from 'react'
-import AddTodo from '../AddTodo'
-import TodoList from '../TodoList'
+import Head from 'next/head'
+import AddTodo from '../components/AddTodo'
+import TodoList from '../components/TodoList'
 import { Row, Col } from 'antd'
-import './style.css'
+import styles from '../styles/todo.module.css'
 
-function App (){
+export default function index (){
  
     return(
         <div>
+            <Head>
+                <title>Todo app</title>
+            </Head>
             <Row
             justify='center'
-            className='todo-container'
+            className={styles.todo_container}
             >
                 <Col
                 xs={{ span: 23 }}
@@ -25,7 +28,7 @@ function App (){
 
             <Row
             justify='center'
-            className='todo-container'
+            className={styles.todo_container}
             >
             <Col
             xs={{ span: 23 }}
@@ -45,4 +48,3 @@ function App (){
 }
 
 
-export default App

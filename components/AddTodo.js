@@ -1,20 +1,14 @@
-import React from 'react'
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Form, Button, Input, Row, Col, Card} from 'antd'
 import { PlusCircleFilled } from '@ant-design/icons'
-import {CREATE_TASK} from '../../redux/actions/TodoAction'
-import './style.css'
+import {createTask} from '../redux/actions/action'
 
-function AddTodo(){
-    const dispatch = useDispatch()
+function AddTodo(props){
 
     const [form] = Form.useForm();
 
     const handleSubmition = (payload) => {
-        dispatch({
-            type: CREATE_TASK,
-            payload: payload
-        })
+        props.createTask(payload)
         form.resetFields();
     }
 
@@ -45,5 +39,5 @@ function AddTodo(){
     )
 }
 
-export default AddTodo
+export default connect(null, {createTask})(AddTodo)
 

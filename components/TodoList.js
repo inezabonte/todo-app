@@ -1,39 +1,29 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import { Checkbox, Card, Button, List, Typography} from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import {useDispatch, connect} from 'react-redux'
-import {FETCH_TASKS, DELETE_TASK, UPDATE_TASK} from '../../redux/actions/TodoAction'
+import { connect } from 'react-redux'
+import {deleteTask, updateTask, fetchTasks} from '../redux/actions/action'
 
 const { Text } = Typography
 
-function TodoList(props) {
-  const dispatch = useDispatch()
-  
+function TodoList(props) {  
   useEffect(() => {
     const storedTasks = JSON.parse(localStorage.getItem("tasks"))
     if(storedTasks != null){
-        dispatch({
-            type: FETCH_TASKS,
-            payload: storedTasks
-        })
+        props.fetchTasks(storedTasks)
     }
 
 }, [])
 
   const handleDelete = (index) => (
-    dispatch({
-      type: DELETE_TASK,
-      index
-    })
+    props.deleteTask(index)
   )
 
   const handleCheckBox = (e) => {
     const completed = e.target.checked
-    return dispatch({
-      type: UPDATE_TASK,
-      payload: {completed, task: e.target.value},
-      index: e.target.id
-    })
+    const payload = {completed, task: e.target.value}
+    const index = e.target.id
+    props.updateTask(payload, index)
   }
 
   return (
@@ -60,4 +50,4 @@ const mapStateToProps = state => ({
   tasks: state.todo.tasks
 })
 
-export default connect(mapStateToProps, null)(TodoList)
+export default connect(mapStateToProps, { deleteTask, updateTask, fetchTasks })(TodoList)
