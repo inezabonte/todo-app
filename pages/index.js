@@ -12,7 +12,7 @@ export default function index (){
                 <title>Todo app</title>
                 <link rel="icon" href="/favicon.ico" />
                 <link rel='manifest' href='/manifest.json' />
-
+                <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
                 <link rel='icon' href='/images/favicon-16x16.png' type='image/png' sizes='16x16' />
                 <link rel='icon' href='/images/favicon-32x32.png' type='image/png' sizes='32x32' />
                 <link rel='apple-touch-icon' href='/images/apple-touch-icon.png' />
