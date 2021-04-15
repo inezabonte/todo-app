@@ -7,7 +7,7 @@
 - This is a simple todo app that I made. It allows you to do simple CRUD operations;
   - Create new tasks ➕
   - Check completed tasks ✅
-  - edit tasks 📝
+  - edit tasks 📝 (`WIP`)
   - Delete tasks 🚮
 
 ## **How to run locally**
@@ -18,7 +18,7 @@
 
 ## **Open live application 🚀**
 
-You can also view the live application on on this [Link](https://todo-app-ineza.netlify.app/) 
+You can also view the live application on on this [Link](https://todo-app-ineza.netlify.app/)
 
 ## **Issues 🧰**
 
