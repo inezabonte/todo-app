@@ -1,6 +1,4 @@
-# Todo app
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b271f18e-7255-437b-995c-35b71e083e41/deploy-status)](https://app.netlify.com/sites/todo-app-ineza/deploys)
+# Todo app 📝
 
 ## **About**
 
@@ -18,7 +16,7 @@
 
 ## **Open live application 🚀**
 
-You can also view the live application on on this [Link](https://todo-app-ineza.netlify.app/)
+You can also view the live application on on this [Link](https://inezatodoapp.vercel.app/)
 
 ## **Issues 🧰**
 
