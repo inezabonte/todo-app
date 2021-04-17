@@ -27,8 +27,7 @@ function TodoList(props) {
   }
 
   return (
-      <Card title='Todo List'>
-        
+      <Card>
         <List
             dataSource={props.tasks}
             renderItem={(item, index) => (

@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
-import { Row, Col } from 'antd'
+import { Row, Col, Layout, Typography } from 'antd'
 import styles from '../styles/todo.module.css'
 
+const { Header } = Layout
+const { Title } = Typography
 export default function index (){
  
     return(
@@ -18,12 +20,15 @@ export default function index (){
                 <link rel='apple-touch-icon' href='/images/apple-touch-icon.png' />
                 <meta name='theme-color' content='#ffffff' />
             </Head>
+            <Header className={styles.header}>
+                <Title level={3} style={{margin: 0}} >Todo app</Title>
+            </Header>
             <Row
             justify='center'
             className={styles.todo_container}
             >
                 <Col
-                xs={{ span: 23 }}
+                xs={{ span: 24 }}
                 sm={{ span: 23 }}
                 md={{ span: 21 }}
                 lg={{ span: 18 }}
@@ -35,10 +40,9 @@ export default function index (){
 
             <Row
             justify='center'
-            className={styles.todo_container}
             >
             <Col
-            xs={{ span: 23 }}
+            xs={{ span: 24 }}
             sm={{ span: 23 }}
             md={{ span: 21 }}
             lg={{ span: 18 }}
